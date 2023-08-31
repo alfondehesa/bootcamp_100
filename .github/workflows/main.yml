@@ -5,7 +5,7 @@ on:
   push: # Trigger
     branches: [ main ] # Relevant branches (add more by adding a comma and listing: [main,dev,etc]) 
 jobs:
-  cloning: # Attempt to clone the repo, in case a version is not already in local  
+  update: # Attempt to update the repo 
     runs-on: self-hosted # Run in self hosted runner
     env: # SETTINGS
       GITHUB_EMAIL: "alfondehesa@hotmail.com"
