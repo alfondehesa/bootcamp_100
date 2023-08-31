@@ -10,7 +10,7 @@ jobs:
     env: # SETTINGS
       GITHUB_EMAIL: "alfondehesa@hotmail.com"
       GITHUB_USERNAME: "alfondehesa"
-      LOCAL_DIR: ~/github_repos/bootcamp_100 # CHANGE TO YOUR LOCAL REPO PATH (INCLUDE REPO MAIN FOLDER: PATH/REPO) (HINT: You can represent your home directory with ~ to make the script compatible with different users/systems)
+      LOCAL_DIR: /home/alfondehesa/github_repos/bootcamp_100 # CHANGE TO YOUR LOCAL REPO PATH (INCLUDE REPO MAIN FOLDER: PATH/REPO)
       REPO_NAME: bootcamp_100 # CHANGE TO THE NAME OF YOUR REPO
       REPO_ADDRESS: https://github.com/alfondehesa/bootcamp_100.git # CHANGE TO THE ADDRESS OF YOUR REPO WITH A .git IN THE END
     steps: 
