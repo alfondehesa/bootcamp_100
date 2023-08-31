@@ -1,2 +1,2 @@
-# bootcamp_100
+# 100 Day Python Bootcamp
 Repository to hold my Python Bootcamp's project directories.
