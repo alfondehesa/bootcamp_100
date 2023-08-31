@@ -1,0 +1,40 @@
+# This workflow causes a self-hosted runner (Execution Server) to either clone or pull (depending on relevance) the latest version of the repo's main branch.
+# It is triggered by a push to the main branch.
+name: Self Updater
+on:
+  push: # Trigger
+    branches: [ main ] # Relevant branches (add more by adding a comma and listing: [main,dev,etc]) 
+jobs:
+  cloning: # Attempt to clone the repo, in case a version is not already in local  
+    runs-on: self-hosted # Run in self hosted runner
+    env: # SETTINGS
+      GITHUB_EMAIL: "alfondehesa@hotmail.com"
+      GITHUB_USERNAME: "alfondehesa"
+      LOCAL_DIR: ~/github_repos/bootcamp_100 # CHANGE TO YOUR LOCAL REPO PATH (INCLUDE REPO MAIN FOLDER: PATH/REPO) (HINT: You can represent your home directory with ~ to make the script compatible with different users/systems)
+      REPO_NAME: bootcamp_100 # CHANGE TO THE NAME OF YOUR REPO
+      REPO_ADDRESS: https://github.com/alfondehesa/bootcamp_100.git # CHANGE TO THE ADDRESS OF YOUR REPO WITH A .git IN THE END
+    steps: 
+      - name: Clone # Attempt to clone in case repo is not installed
+        continue-on-error: true # If repo is installed, it will throw an error
+        run: |
+          sudo git config --global user.email $GITHUB_EMAIL
+          sudo git config --global user.name $GITHUB_USERNAME
+          mkdir $LOCAL_DIR 2> /dev/null # Attempt to make a repo folder if non existent
+          cd $LOCAL_DIR # Navigate to folder
+          cd .. # Navigate to root folder
+          sudo git clone $REPO_ADDRESS 2> /dev/null # Attempt to clone repo
+          sudo git config --global --add safe.directory $LOCAL_DIR # Add as safe directory
+          sudo chmod -R 777 $REPO_NAME # Grant all permissions to all users
+      - name: Pull # If previous step fails, attempt to pull changes from git
+        continue-on-error: true # If repo has just been cloned, it will throw an error
+        run: |
+          sudo git config --global user.email $GITHUB_EMAIL
+          sudo git config --global user.name $GITHUB_USERNAME
+          cd $LOCAL_DIR # Navigate to existing local repo folder
+          sudo git config --global --add safe.directory $LOCAL_DIR # Add folder as safe directory if it wasn't already
+          sudo git checkout main # Checkout main branch
+          sudo git reset origin/main # Reset all local changes to main to resolve conflicts (WARNING: THIS WILL OVERWRITE ANY LOCAL CHANGES)
+          sudo git reset --hard HEAD # Reset all local changes to main to resolve conflicts (WARNING: THIS WILL OVERWRITE ANY LOCAL CHANGES)
+          sudo git pull origin main --ff # Pull latest main branch from git
+          cd .. # Navigate to root folder
+          sudo chmod -R 777 $REPO_NAME # Grant all permissions to all users
