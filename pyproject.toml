@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "bootcamp-100"
+version = "0.1.0"
+description = "Contains all libraries to run every project on the bootcamp."
+authors = ["alfondehesa <alfondehesa@hotmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
